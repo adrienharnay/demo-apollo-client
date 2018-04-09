@@ -2,13 +2,15 @@ import ApolloClient from 'apollo-boost';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 
-import Home from './screens/home/Home';
+import CocktailsList from './screens/cocktails-list/CocktailsList';
 
-const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
+const client = new ApolloClient({
+  uri: 'https://demo-apollo-server.herokuapp.com/graphql',
+});
 
 const App = () => (
   <ApolloProvider client={client}>
-    <Home />
+    <CocktailsList />
   </ApolloProvider>
 );
 
