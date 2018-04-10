@@ -1,8 +1,11 @@
 {
   "name": "demo-apollo-client",
   "version": "1.0.0",
-  "private": false,
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "repository": "https://github.com/adrienharnay/demo-apollo-client.git",
+  "author": "Adrien HARNAY <adrien@harnay.me>",
+  "license": "MIT",
+  "private": false,
   "jest": {
     "preset": "jest-expo"
   },
