@@ -2,7 +2,7 @@ import debounce from 'lodash.debounce';
 import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 
-import CocktailsList from './CocktailsList';
+import CocktailsContainer from './CocktailsContainer';
 
 export default class CocktailsScreen extends React.Component {
   state = {
@@ -24,7 +24,7 @@ export default class CocktailsScreen extends React.Component {
             placeholder="Select ingredient..."
           />
         </View>
-        <CocktailsList ingredient={this.state.ingredient} />
+        <CocktailsContainer ingredient={this.state.ingredient} />
       </View>
     );
   }
