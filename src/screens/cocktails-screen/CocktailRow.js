@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 110,
+    height: 110,
   },
 });
 
