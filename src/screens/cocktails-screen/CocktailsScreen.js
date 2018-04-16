@@ -11,7 +11,7 @@ export default class CocktailsScreen extends React.Component {
 
   handleInputChange = debounce(ingredient => {
     this.setState({ ingredient });
-  }, 500);
+  }, 400);
 
   render() {
     return (
