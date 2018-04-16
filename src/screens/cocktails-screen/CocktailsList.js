@@ -15,6 +15,8 @@ export default class CocktailsList extends React.Component {
     }
   }
 
+  renderItem = ({ item }) => <CocktailRow {...item} />;
+
   render() {
     return (
       <View style={styles.container}>
@@ -24,7 +26,7 @@ export default class CocktailsList extends React.Component {
           }}
           data={this.props.cocktails}
           keyExtractor={item => item.id}
-          renderItem={CocktailRow}
+          renderItem={this.renderItem}
         />
       </View>
     );
