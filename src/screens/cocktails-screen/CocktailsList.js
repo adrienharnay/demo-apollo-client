@@ -5,7 +5,7 @@ import { FlatList, StyleSheet, View } from 'react-native';
 
 import CocktailRow from './CocktailRow';
 
-export default class CocktailsList extends React.Component {
+export default class CocktailsList extends React.PureComponent {
   componentDidUpdate(prevProps) {
     if (prevProps.cocktails !== this.props.cocktails) {
       this.list.scrollToOffset({
@@ -15,7 +15,9 @@ export default class CocktailsList extends React.Component {
     }
   }
 
-  renderItem = ({ item }) => <CocktailRow {...item} />;
+  renderItem = ({ item }) => (
+    <CocktailRow {...item} onPress={this.props.onRowPress} />
+  );
 
   render() {
     return (
@@ -41,6 +43,7 @@ CocktailsList.propTypes = {
       imageURL: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
+  onRowPress: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

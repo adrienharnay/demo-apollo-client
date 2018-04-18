@@ -5,6 +5,10 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import CocktailsContainer from './CocktailsContainer';
 
 export default class CocktailsScreen extends React.Component {
+  static navigationOptions = {
+    title: "Adrien's bar",
+  };
+
   state = {
     ingredient: '',
   };
@@ -12,6 +16,10 @@ export default class CocktailsScreen extends React.Component {
   handleInputChange = debounce(ingredient => {
     this.setState({ ingredient });
   }, 400);
+
+  onRowPress = params => {
+    this.props.navigation.navigate('Details', params);
+  };
 
   render() {
     return (
@@ -24,7 +32,10 @@ export default class CocktailsScreen extends React.Component {
             placeholder="Select ingredient..."
           />
         </View>
-        <CocktailsContainer ingredient={this.state.ingredient} />
+        <CocktailsContainer
+          ingredient={this.state.ingredient}
+          onRowPress={this.onRowPress}
+        />
       </View>
     );
   }

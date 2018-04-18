@@ -1,13 +1,33 @@
 import React from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-const DetailsScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Details</Text>
-    </View>
-  );
-};
+export default class DetailsScreen extends React.Component {
+  static navigationOptions = ({
+    navigation: {
+      state: {
+        params: { name },
+      },
+    },
+  }) => ({
+    title: name,
+  });
+
+  render() {
+    const {
+      navigation: {
+        state: {
+          params: { id },
+        },
+      },
+    } = this.props;
+
+    return (
+      <View style={styles.container}>
+        <Text>{id}</Text>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -17,5 +37,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-export default DetailsScreen;

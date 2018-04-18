@@ -16,7 +16,7 @@ const GET_COCKTAILS = gql`
   }
 `;
 
-const CocktailsContainer = ({ ingredient }) => (
+const CocktailsContainer = ({ ingredient, onRowPress }) => (
   <Query query={GET_COCKTAILS} variables={{ ingredient }}>
     {({ loading, error, data }) => {
       if (loading && !Object.keys(data).length) {
@@ -43,13 +43,16 @@ const CocktailsContainer = ({ ingredient }) => (
         );
       }
 
-      return <CocktailsList cocktails={data.cocktails} />;
+      return (
+        <CocktailsList cocktails={data.cocktails} onRowPress={onRowPress} />
+      );
     }}
   </Query>
 );
 
 CocktailsContainer.propTypes = {
   ingredient: PropTypes.string,
+  onRowPress: PropTypes.func.isRequired,
 };
 
 CocktailsContainer.defaultProps = {
