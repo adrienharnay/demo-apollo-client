@@ -36,6 +36,7 @@ const RootStack = StackNavigator(
       headerStyle: {
         backgroundColor: '#ffff',
       },
+      headerBackTitle: null,
     },
   },
 );

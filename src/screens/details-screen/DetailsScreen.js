@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
+
+import DetailsContainer from './DetailsContainer';
 
 export default class DetailsScreen extends React.Component {
   static navigationOptions = ({
@@ -16,14 +18,17 @@ export default class DetailsScreen extends React.Component {
     const {
       navigation: {
         state: {
-          params: { id },
+          params: { id, imageURL },
         },
       },
     } = this.props;
 
     return (
       <View style={styles.container}>
-        <Text>{id}</Text>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={{ uri: `https://${imageURL}` }} />
+        </View>
+        <DetailsContainer id={id} />
       </View>
     );
   }
@@ -34,6 +39,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'stretch',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+  },
+  imageContainer: {
+    overflow: 'hidden',
+  },
+  image: {
+    width: '100%',
+    height: 300,
+    marginBottom: -125,
   },
 });
