@@ -4,6 +4,8 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
+import DetailsView from './DetailsView';
+
 const GET_COCKTAIL = gql`
   query cocktail($id: ID!) {
     cocktail(id: $id) {
@@ -20,8 +22,8 @@ const GET_COCKTAIL = gql`
 
 const DetailsContainer = ({ id }) => (
   <Query query={GET_COCKTAIL} variables={{ id }}>
-    {({ loading, error, data }) => {
-      if (loading && !Object.keys(data).length) {
+    {({ loading, error, data: { cocktail } }) => {
+      if (loading && !cocktail) {
         return (
           <View style={styles.loadingContainer}>
             <ActivityIndicator />
@@ -37,34 +39,7 @@ const DetailsContainer = ({ id }) => (
         );
       }
 
-      const {
-        cocktail: { likes, glassType, instructions, ingredients },
-      } = data;
-
-      const IngredientsList = ingredients.map(({ name, quantity }, index) => (
-        <Text key={index}>
-          <Text>{'- '}</Text>
-          {quantity && <Text style={styles.bold}>{`${quantity} `}</Text>}
-          <Text>{name}</Text>
-        </Text>
-      ));
-
-      return (
-        <View style={styles.container}>
-          <View style={styles.firstSection}>
-            <View>
-              <Text>{glassType}</Text>
-            </View>
-            <View>
-              <Text>{`${likes} 💙`}</Text>
-            </View>
-          </View>
-          <View style={styles.secondSection}>
-            <Text>{instructions}</Text>
-          </View>
-          <View style={styles.thirdSection}>{IngredientsList}</View>
-        </View>
-      );
+      return <DetailsView cocktail={cocktail} />;
     }}
   </Query>
 );
@@ -79,23 +54,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  container: {
-    paddingHorizontal: 20,
-  },
-  firstSection: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 30,
-  },
-  secondSection: {
-    marginTop: 20,
-  },
-  thirdSection: {
-    marginTop: 20,
-  },
-  bold: {
-    fontWeight: 'bold',
   },
 });
 

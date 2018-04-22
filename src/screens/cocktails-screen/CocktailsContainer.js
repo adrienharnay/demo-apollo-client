@@ -18,8 +18,8 @@ const GET_COCKTAILS = gql`
 
 const CocktailsContainer = ({ ingredient, onRowPress }) => (
   <Query query={GET_COCKTAILS} variables={{ ingredient }}>
-    {({ loading, error, data }) => {
-      if (loading && !Object.keys(data).length) {
+    {({ loading, error, data: { cocktails } }) => {
+      if (loading && !cocktails) {
         return (
           <View style={styles.loadingContainer}>
             <ActivityIndicator />
@@ -35,7 +35,7 @@ const CocktailsContainer = ({ ingredient, onRowPress }) => (
         );
       }
 
-      if (!data.cocktails.length) {
+      if (!cocktails.length) {
         return (
           <View style={styles.loadingContainer}>
             <Text>No results...</Text>
@@ -44,7 +44,7 @@ const CocktailsContainer = ({ ingredient, onRowPress }) => (
       }
 
       return (
-        <CocktailsList cocktails={data.cocktails} onRowPress={onRowPress} />
+        <CocktailsList cocktails={cocktails} onRowPress={onRowPress} />
       );
     }}
   </Query>
