@@ -4,7 +4,7 @@ import { persistCache } from 'apollo-cache-persist';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { AsyncStorage, SafeAreaView, StyleSheet } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
 import CocktailsScreen from './screens/cocktails-screen/CocktailsScreen';
 import DetailsScreen from './screens/details-screen/DetailsScreen';
@@ -21,14 +21,10 @@ const client = new ApolloClient({
   cache,
 });
 
-const RootStack = StackNavigator(
+const RootStack = createStackNavigator(
   {
-    Home: {
-      screen: CocktailsScreen,
-    },
-    Details: {
-      screen: DetailsScreen,
-    },
+    Home: CocktailsScreen,
+    Details: DetailsScreen,
   },
   {
     initialRouteName: 'Home',

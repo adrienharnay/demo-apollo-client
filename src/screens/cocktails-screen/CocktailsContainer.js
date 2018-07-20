@@ -18,7 +18,7 @@ const GET_COCKTAILS = gql`
 
 const CocktailsContainer = ({ ingredient, onRowPress }) => (
   <Query query={GET_COCKTAILS} variables={{ ingredient }}>
-    {({ loading, error, data: { cocktails } }) => {
+    {({ loading, error, data: { cocktails } = {} }) => {
       if (loading && !cocktails) {
         return (
           <View style={styles.loadingContainer}>
@@ -43,9 +43,7 @@ const CocktailsContainer = ({ ingredient, onRowPress }) => (
         );
       }
 
-      return (
-        <CocktailsList cocktails={cocktails} onRowPress={onRowPress} />
-      );
+      return <CocktailsList cocktails={cocktails} onRowPress={onRowPress} />;
     }}
   </Query>
 );

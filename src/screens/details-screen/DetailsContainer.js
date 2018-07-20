@@ -22,7 +22,7 @@ const GET_COCKTAIL = gql`
 
 const DetailsContainer = ({ id }) => (
   <Query query={GET_COCKTAIL} variables={{ id }}>
-    {({ loading, error, data: { cocktail } }) => {
+    {({ loading, error, data: { cocktail } = {} }) => {
       if (loading && !cocktail) {
         return (
           <View style={styles.loadingContainer}>
