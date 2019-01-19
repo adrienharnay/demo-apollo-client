@@ -15,7 +15,7 @@ export default class CocktailRow extends React.PureComponent {
     return (
       <TouchableOpacity activeOpacity={0.8} onPress={this.handlePress}>
         <View key={id} style={styles.row}>
-          <Text>{name}</Text>
+          <Text style={styles.text}>{name}</Text>
           <Image style={styles.image} source={{ uri: `https://${imageURL}` }} />
         </View>
       </TouchableOpacity>
@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingLeft: 10,
+  },
+  text: {
+    flex: 1,
   },
   image: {
     width: 110,
