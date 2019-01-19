@@ -5,6 +5,10 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import CocktailsContainer from './CocktailsContainer';
 
 export default class CocktailsScreen extends React.Component {
+  static navigationOptions = {
+    header: null,
+  };
+
   state = {
     ingredient: '',
   };
