@@ -1,6 +1,7 @@
 import ApolloClient from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
+import { Constants } from 'expo';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { AsyncStorage, SafeAreaView, StyleSheet } from 'react-native';
@@ -19,6 +20,9 @@ persistCache({
 const client = new ApolloClient({
   uri: 'https://demo-apollo-server.herokuapp.com/graphql',
   cache,
+  headers: {
+    device_id: Constants.deviceId,
+  },
 });
 
 const RootStack = createAppContainer(
