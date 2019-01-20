@@ -4,7 +4,25 @@ import React from 'react';
 import { Mutation } from 'react-apollo';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import getCocktail from './getCocktail.gql';
 import toggleLikeCocktail from './toggleLikeCocktail.gql';
+
+const updateCocktail = (cache, { data: { toggleLikeCocktail } }) => {
+  const data = cache.readQuery({
+    query: getCocktail,
+    variables: { id: toggleLikeCocktail.id },
+  });
+  const newData = {
+    ...data,
+    ...toggleLikeCocktail,
+  };
+
+  cache.writeQuery({
+    query: GET_JOBS,
+    variables: { id: toggleLikeCocktail.id },
+    data: newData,
+  });
+};
 
 const DetailsView = ({
   cocktail: { id, likes, glassType, instructions, ingredients, liked },
@@ -24,13 +42,15 @@ const DetailsView = ({
           <Text>{glassType}</Text>
         </View>
         <View>
-          <Mutation mutation={toggleLikeCocktail}>
+          <Mutation mutation={toggleLikeCocktail} update={updateCocktail}>
             {toggleLike => (
               <TouchableOpacity
                 activeOpacity={0.5}
                 onPress={() => toggleLike({ variables: { id } })}
               >
-                <Text>{`${likes} ${liked ? '💜' : '💟'}`}</Text>
+                <Text
+                  style={{ opacity: liked ? 1 : 0.5 }}
+                >{`${likes} 💜`}</Text>
               </TouchableOpacity>
             )}
           </Mutation>

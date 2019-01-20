@@ -1,5 +1,6 @@
 mutation toggleLikeCocktail($id: ID!) {
   toggleLikeCocktail(id: $id) {
+    id
     likes
     liked
   }
