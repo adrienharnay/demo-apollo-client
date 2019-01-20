@@ -9,6 +9,7 @@ import DetailsView from './DetailsView';
 const GET_COCKTAIL = gql`
   query cocktail($id: ID!) {
     cocktail(id: $id) {
+      id
       likes
       glassType
       instructions
@@ -16,6 +17,8 @@ const GET_COCKTAIL = gql`
         name
         quantity
       }
+      liked
+      bookmarked
     }
   }
 `;

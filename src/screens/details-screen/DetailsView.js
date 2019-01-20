@@ -1,9 +1,20 @@
+import { gql } from 'apollo-boost';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Mutation } from 'react-apollo';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+const TOGGLE_LIKE = gql`
+  mutation toggleLikeCocktail($id: ID!) {
+    toggleLikeCocktail(id: $id) {
+      likes
+      liked
+    }
+  }
+`;
 
 const DetailsView = ({
-  cocktail: { likes, glassType, instructions, ingredients },
+  cocktail: { id, likes, glassType, instructions, ingredients, liked },
 }) => {
   const IngredientsList = ingredients.map(({ name, quantity }, index) => (
     <Text key={index}>
@@ -20,7 +31,16 @@ const DetailsView = ({
           <Text>{glassType}</Text>
         </View>
         <View>
-          <Text>{`${likes} 💙`}</Text>
+          <Mutation mutation={TOGGLE_LIKE}>
+            {toggleLike => (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => toggleLike({ variables: { id } })}
+              >
+                <Text>{`${likes} ${liked ? '💜' : '💟'}`}</Text>
+              </TouchableOpacity>
+            )}
+          </Mutation>
         </View>
       </View>
       <View style={styles.secondSection}>
@@ -42,6 +62,8 @@ DetailsView.propTypes = {
         quantity: PropTypes.string,
       }),
     ).isRequired,
+    liked: PropTypes.bool.isRequired,
+    bookmarked: PropTypes.bool.isRequired,
   }).isRequired,
 };
 

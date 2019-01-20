@@ -25,6 +25,20 @@ const client = new ApolloClient({
   },
 });
 
+client.defaultOptions = {
+  watchQuery: {
+    fetchPolicy: 'cache-and-network',
+    errorPolicy: 'all',
+  },
+  query: {
+    fetchPolicy: 'cache-and-network',
+    errorPolicy: 'all',
+  },
+  mutate: {
+    errorPolicy: 'all',
+  },
+};
+
 const RootStack = createAppContainer(
   createStackNavigator(
     {
