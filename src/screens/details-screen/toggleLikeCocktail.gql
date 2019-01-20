@@ -1,0 +1,6 @@
+mutation toggleLikeCocktail($id: ID!) {
+  toggleLikeCocktail(id: $id) {
+    likes
+    liked
+  }
+}

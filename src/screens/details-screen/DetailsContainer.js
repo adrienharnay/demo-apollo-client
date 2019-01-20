@@ -6,25 +6,10 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 import DetailsView from './DetailsView';
 
-const GET_COCKTAIL = gql`
-  query cocktail($id: ID!) {
-    cocktail(id: $id) {
-      id
-      likes
-      glassType
-      instructions
-      ingredients {
-        name
-        quantity
-      }
-      liked
-      bookmarked
-    }
-  }
-`;
+import getCocktail from './getCocktail.gql';
 
 const DetailsContainer = ({ id }) => (
-  <Query query={GET_COCKTAIL} variables={{ id }}>
+  <Query query={getCocktail} variables={{ id }}>
     {({ loading, error, data: { cocktail } = {} }) => {
       if (loading && !cocktail) {
         return (

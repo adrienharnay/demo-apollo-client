@@ -4,14 +4,7 @@ import React from 'react';
 import { Mutation } from 'react-apollo';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const TOGGLE_LIKE = gql`
-  mutation toggleLikeCocktail($id: ID!) {
-    toggleLikeCocktail(id: $id) {
-      likes
-      liked
-    }
-  }
-`;
+import toggleLikeCocktail from './toggleLikeCocktail.gql';
 
 const DetailsView = ({
   cocktail: { id, likes, glassType, instructions, ingredients, liked },
@@ -31,10 +24,10 @@ const DetailsView = ({
           <Text>{glassType}</Text>
         </View>
         <View>
-          <Mutation mutation={TOGGLE_LIKE}>
+          <Mutation mutation={toggleLikeCocktail}>
             {toggleLike => (
               <TouchableOpacity
-                activeOpacity={0.8}
+                activeOpacity={0.5}
                 onPress={() => toggleLike({ variables: { id } })}
               >
                 <Text>{`${likes} ${liked ? '💜' : '💟'}`}</Text>
