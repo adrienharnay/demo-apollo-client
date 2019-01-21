@@ -99,7 +99,7 @@ const DetailsView = ({
                         padding: 10,
                       }}
                     >
-                      {'🔖'}
+                      {'🧐'}
                     </Text>
                   </TouchableOpacity>
                 )}
@@ -139,7 +139,7 @@ const DetailsView = ({
                       }}
                     >
                       <Text>{likes}</Text>
-                      <Text>{'💜'}</Text>
+                      <Text>{'⭐️'}</Text>
                     </View>
                   </TouchableOpacity>
                 )}

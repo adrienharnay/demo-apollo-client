@@ -6,10 +6,34 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import CocktailsList from './CocktailsList';
 
 import getCocktails from './getCocktails.gql';
+import getBookmarkedCocktails from './getBookmarkedCocktails.gql';
+import getLikedCocktails from './getLikedCocktails.gql';
 
-const CocktailsContainer = ({ ingredient, onRowPress }) => (
-  <Query query={getCocktails} variables={{ ingredient }}>
-    {({ loading, error, data: { cocktails } = {} }) => {
+const FILTERS = {
+  ALL: 'ALL',
+  BOOKMARKED: 'BOOKMARKED',
+  LIKED: 'LIKED',
+};
+
+const QUERIES_BY_FILTER = {
+  [FILTERS.ALL]: getCocktails,
+  [FILTERS.BOOKMARKED]: getBookmarkedCocktails,
+  [FILTERS.LIKED]: getLikedCocktails,
+};
+
+const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
+  <Query query={QUERIES_BY_FILTER[filter]} variables={{ ingredient }}>
+    {({
+      loading,
+      error,
+      data: {
+        cocktails: allCocktails,
+        bookmarkedCocktails,
+        likedCocktails,
+      } = {},
+    }) => {
+      const cocktails = allCocktails || bookmarkedCocktails || likedCocktails;
+
       if (loading && !cocktails) {
         return (
           <View style={styles.loadingContainer}>
@@ -27,11 +51,59 @@ const CocktailsContainer = ({ ingredient, onRowPress }) => (
       }
 
       if (!cocktails.length) {
-        return (
-          <View style={styles.loadingContainer}>
-            <Text>No results...</Text>
-          </View>
-        );
+        if (filter === FILTERS.ALL) {
+          if (!ingredient) {
+            return (
+              <View style={styles.loadingContainer}>
+                <Text>There is no cocktail (yet!)</Text>
+              </View>
+            );
+          }
+
+          return (
+            <View style={styles.loadingContainer}>
+              <Text>There is no cocktail made with this ingredient 🥒</Text>
+            </View>
+          );
+        }
+
+        if (filter === FILTERS.BOOKMARKED) {
+          if (!ingredient) {
+            return (
+              <View style={styles.loadingContainer}>
+                <Text>You haven't bookmarked a cocktail (yet!) 🧐</Text>
+              </View>
+            );
+          }
+
+          return (
+            <View style={styles.loadingContainer}>
+              <Text>
+                You haven't bookmarked cocktail made with this ingredient (yet!)
+                🧐🍅
+              </Text>
+            </View>
+          );
+        }
+
+        if (filter === FILTERS.LIKED) {
+          if (!ingredient) {
+            return (
+              <View style={styles.loadingContainer}>
+                <Text>You haven't liked a cocktail (yet!) ⭐️</Text>
+              </View>
+            );
+          }
+
+          return (
+            <View style={styles.loadingContainer}>
+              <Text>
+                You haven't liked a cocktail made with this ingredient (yet!)
+                ⭐️🥕
+              </Text>
+            </View>
+          );
+        }
       }
 
       return <CocktailsList cocktails={cocktails} onRowPress={onRowPress} />;
@@ -41,6 +113,7 @@ const CocktailsContainer = ({ ingredient, onRowPress }) => (
 
 CocktailsContainer.propTypes = {
   ingredient: PropTypes.string,
+  filter: PropTypes.string.isRequired,
   onRowPress: PropTypes.func.isRequired,
 };
 

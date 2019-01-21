@@ -1,0 +1,7 @@
+query bookmarkedCocktails($ingredient: String) {
+  bookmarkedCocktails(ingredient: $ingredient) {
+    id
+    name
+    imageURL
+  }
+}
