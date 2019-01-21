@@ -1,0 +1,6 @@
+mutation toggleBookmarkCocktail($id: ID!) {
+  toggleBookmarkCocktail(id: $id) {
+    id
+    bookmarked
+  }
+}

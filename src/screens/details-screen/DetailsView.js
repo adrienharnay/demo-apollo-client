@@ -1,13 +1,33 @@
-import { gql } from 'apollo-boost';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Mutation } from 'react-apollo';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import getCocktail from './getCocktail.gql';
+import toggleBookmarkCocktail from './toggleBookmarkCocktail.gql';
 import toggleLikeCocktail from './toggleLikeCocktail.gql';
 
-const updateCocktail = (cache, { data: { toggleLikeCocktail } }) => {
+const updateCocktailAfterBookmark = (
+  cache,
+  { data: { toggleBookmarkCocktail } },
+) => {
+  const data = cache.readQuery({
+    query: getCocktail,
+    variables: { id: toggleBookmarkCocktail.id },
+  });
+  const newData = {
+    ...data,
+    ...toggleBookmarkCocktail,
+  };
+
+  cache.writeQuery({
+    query: getCocktail,
+    variables: { id: toggleBookmarkCocktail.id },
+    data: newData,
+  });
+};
+
+const updateCocktailAfterLike = (cache, { data: { toggleLikeCocktail } }) => {
   const data = cache.readQuery({
     query: getCocktail,
     variables: { id: toggleLikeCocktail.id },
@@ -18,14 +38,22 @@ const updateCocktail = (cache, { data: { toggleLikeCocktail } }) => {
   };
 
   cache.writeQuery({
-    query: GET_JOBS,
+    query: getCocktail,
     variables: { id: toggleLikeCocktail.id },
     data: newData,
   });
 };
 
 const DetailsView = ({
-  cocktail: { id, likes, glassType, instructions, ingredients, liked },
+  cocktail: {
+    id,
+    likes,
+    glassType,
+    instructions,
+    ingredients,
+    liked,
+    bookmarked,
+  },
 }) => {
   const IngredientsList = ingredients.map(({ name, quantity }, index) => (
     <Text key={index}>
@@ -39,21 +67,85 @@ const DetailsView = ({
     <View style={styles.container}>
       <View style={styles.firstSection}>
         <View>
-          <Text>{glassType}</Text>
+          <Text style={styles.glassType}>{glassType}</Text>
         </View>
         <View>
-          <Mutation mutation={toggleLikeCocktail} update={updateCocktail}>
-            {toggleLike => (
-              <TouchableOpacity
-                activeOpacity={0.5}
-                onPress={() => toggleLike({ variables: { id } })}
+          <View style={styles.bookmarkAndLike}>
+            <View style={styles.bookmark}>
+              <Mutation
+                mutation={toggleBookmarkCocktail}
+                update={updateCocktailAfterBookmark}
               >
-                <Text
-                  style={{ opacity: liked ? 1 : 0.5 }}
-                >{`${likes} 💜`}</Text>
-              </TouchableOpacity>
-            )}
-          </Mutation>
+                {toggleBookmark => (
+                  <TouchableOpacity
+                    activeOpacity={0.5}
+                    onPress={() =>
+                      toggleBookmark({
+                        variables: { id },
+                        optimisticResponse: {
+                          __typename: 'Mutation',
+                          toggleBookmarkCocktail: {
+                            __typename: 'Cocktail',
+                            id,
+                            bookmarked: !bookmarked,
+                          },
+                        },
+                      })
+                    }
+                  >
+                    <Text
+                      style={{
+                        opacity: bookmarked ? 1 : 0.3,
+                        padding: 10,
+                      }}
+                    >
+                      {'🔖'}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </Mutation>
+            </View>
+            <View>
+              <Mutation
+                mutation={toggleLikeCocktail}
+                update={updateCocktailAfterLike}
+              >
+                {toggleLike => (
+                  <TouchableOpacity
+                    activeOpacity={0.5}
+                    onPress={() =>
+                      toggleLike({
+                        variables: { id },
+                        optimisticResponse: {
+                          __typename: 'Mutation',
+                          toggleLikeCocktail: {
+                            __typename: 'Cocktail',
+                            id,
+                            likes: liked ? likes - 1 : likes + 1,
+                            liked: !liked,
+                          },
+                        },
+                      })
+                    }
+                    style={{ width: 60 }}
+                  >
+                    <View
+                      style={{
+                        opacity: liked ? 1 : 0.3,
+                        padding: 10,
+                        width: 55,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <Text>{likes}</Text>
+                      <Text>{'💜'}</Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
+              </Mutation>
+            </View>
+          </View>
         </View>
       </View>
       <View style={styles.secondSection}>
@@ -87,13 +179,25 @@ const styles = StyleSheet.create({
   firstSection: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 30,
+    marginTop: 20,
+  },
+  glassType: {
+    paddingVertical: 10,
+  },
+  bookmarkAndLike: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  bookmark: {
+    marginRight: 15,
   },
   secondSection: {
     marginTop: 20,
+    marginLeft: 10,
   },
   thirdSection: {
     marginTop: 20,
+    marginLeft: 10,
   },
   bold: {
     fontWeight: 'bold',
