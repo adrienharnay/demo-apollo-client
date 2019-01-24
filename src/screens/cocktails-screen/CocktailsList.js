@@ -20,15 +20,19 @@ export default class CocktailsList extends React.PureComponent {
   );
 
   render() {
+    const { cocktails, refetching, refetch } = this.props;
+
     return (
       <View style={styles.container}>
         <FlatList
           ref={r => {
             this.list = r;
           }}
-          data={this.props.cocktails}
+          data={cocktails}
           keyExtractor={item => item.id}
           renderItem={this.renderItem}
+          onRefresh={refetch}
+          refreshing={false}
         />
       </View>
     );
@@ -44,6 +48,7 @@ CocktailsList.propTypes = {
     }).isRequired,
   ).isRequired,
   onRowPress: PropTypes.func.isRequired,
+  refetch: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

@@ -31,6 +31,7 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
         bookmarkedCocktails,
         likedCocktails,
       } = {},
+      refetch,
     }) => {
       const cocktails = allCocktails || bookmarkedCocktails || likedCocktails;
 
@@ -114,7 +115,13 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
         }
       }
 
-      return <CocktailsList cocktails={cocktails} onRowPress={onRowPress} />;
+      return (
+        <CocktailsList
+          cocktails={cocktails}
+          onRowPress={onRowPress}
+          refetch={refetch}
+        />
+      );
     }}
   </Query>
 );
