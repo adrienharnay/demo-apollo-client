@@ -20,7 +20,7 @@ export default class CocktailsList extends React.PureComponent {
   );
 
   render() {
-    const { cocktails, refetching, refetch } = this.props;
+    const { cocktails, refetch } = this.props;
 
     return (
       <View style={styles.container}>
@@ -33,6 +33,7 @@ export default class CocktailsList extends React.PureComponent {
           renderItem={this.renderItem}
           onRefresh={refetch}
           refreshing={false}
+          keyboardDismissMode="on-drag"
         />
       </View>
     );
