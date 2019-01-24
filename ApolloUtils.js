@@ -9,10 +9,10 @@ import loggerLink from 'apollo-link-logger';
 import { Constants } from 'expo';
 import { AsyncStorage } from 'react-native';
 
-export const createClient = () => {
+export const createClient = async () => {
   const cache = new InMemoryCache();
 
-  persistCache({
+  await persistCache({
     storage: AsyncStorage,
     cache,
   });

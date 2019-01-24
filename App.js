@@ -26,13 +26,29 @@ const RootStack = createAppContainer(
   ),
 );
 
-const App = () => (
-  <ApolloProvider client={createClient()}>
-    <SafeAreaView style={styles.safeArea}>
-      <RootStack />
-    </SafeAreaView>
-  </ApolloProvider>
-);
+export default class App extends React.Component {
+  state = {
+    client: null,
+  };
+
+  async componentDidMount() {
+    const client = await createClient();
+
+    this.setState({ client });
+  }
+
+  render() {
+    return (
+      this.state.client && (
+        <ApolloProvider client={this.state.client}>
+          <SafeAreaView style={styles.safeArea}>
+            <RootStack />
+          </SafeAreaView>
+        </ApolloProvider>
+      )
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -40,5 +56,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
-
-export default App;
