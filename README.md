@@ -1,6 +1,6 @@
 # 🍸 demo-apollo-client
 
-[Live demo](https://expo.io/@zephir77167/demo-apollo-client) - [Slides](https://slides-apollo-client.netlify.com/) - [Apollo-server part](https://github.com/adrienharnay/demo-apollo-server)
+[Live demo](https://exp.host/@zephir77167/demo-apollo-client) - [Slides](https://slides-apollo-client.netlify.com/) - [Apollo-server part](https://github.com/adrienharnay/demo-apollo-server)
 
 This demo app consumes a GraphQL API to power a React Native cocktails recipe book.
 
@@ -8,13 +8,20 @@ This demo app consumes a GraphQL API to power a React Native cocktails recipe bo
 
 ### Try
 
-Connect to [this URL](https://expo.io/@zephir77167/demo-apollo-client) and click on `Open project in the browser`, or scan the QR code with the [Expo App](https://expo.io/tools#client) to open it on your phone!.
+Connect to [this URL](https://exp.host/@zephir77167/demo-apollo-client) and click on `Open project in the browser`, or scan the QR code with the [Expo App](https://expo.io/tools#client) to open it on your phone!.
 
 ### Develop
 
 ```bash
 yarn
 yarn start
+```
+
+OR if you want to log all network operations
+
+```
+yarn
+DEBUG_APOLLO=true yarn start
 ```
 
 Press `i` or `a` to either open an iOS or Android simulator.
