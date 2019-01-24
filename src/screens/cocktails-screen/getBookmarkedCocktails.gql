@@ -1,4 +1,4 @@
-query bookmarkedCocktails($ingredient: String) {
+query bookmarkedCocktails($ingredient: String = "") {
   bookmarkedCocktails(ingredient: $ingredient) {
     id
     name

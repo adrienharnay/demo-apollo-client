@@ -45,7 +45,10 @@ export default class CocktailsScreen extends React.Component {
   };
 
   onRowPress = params => {
-    this.props.navigation.navigate('Details', params);
+    this.props.navigation.navigate('Details', {
+      ...params,
+      listQuery: { ingredient: this.state.ingredient },
+    });
   };
 
   render() {

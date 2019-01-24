@@ -18,7 +18,7 @@ export default class DetailsScreen extends React.Component {
     const {
       navigation: {
         state: {
-          params: { id, imageURL },
+          params: { id, imageURL, listQuery },
         },
       },
     } = this.props;
@@ -28,7 +28,7 @@ export default class DetailsScreen extends React.Component {
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: `https://${imageURL}` }} />
         </View>
-        <DetailsContainer id={id} />
+        <DetailsContainer id={id} listQuery={listQuery} />
       </View>
     );
   }

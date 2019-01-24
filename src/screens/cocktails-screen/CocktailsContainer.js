@@ -36,7 +36,7 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
 
       if (loading && !cocktails) {
         return (
-          <View style={styles.loadingContainer}>
+          <View style={styles.placeholderContainer}>
             <ActivityIndicator />
           </View>
         );
@@ -44,8 +44,8 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
 
       if (error) {
         return (
-          <View style={styles.loadingContainer}>
-            <Text>Error :(</Text>
+          <View style={styles.placeholderContainer}>
+            <Text style={styles.errorText}>Error :(</Text>
           </View>
         );
       }
@@ -54,15 +54,19 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
         if (filter === FILTERS.ALL) {
           if (!ingredient) {
             return (
-              <View style={styles.loadingContainer}>
-                <Text>There is no cocktail (yet!)</Text>
+              <View style={styles.placeholderContainer}>
+                <Text style={styles.errorText}>
+                  There is no cocktail (yet!)
+                </Text>
               </View>
             );
           }
 
           return (
-            <View style={styles.loadingContainer}>
-              <Text>There is no cocktail made with this ingredient 🥒</Text>
+            <View style={styles.placeholderContainer}>
+              <Text style={styles.errorText}>
+                There is no cocktail made with this ingredient 🥒
+              </Text>
             </View>
           );
         }
@@ -70,17 +74,19 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
         if (filter === FILTERS.BOOKMARKED) {
           if (!ingredient) {
             return (
-              <View style={styles.loadingContainer}>
-                <Text>You haven't bookmarked a cocktail (yet!) 🧐</Text>
+              <View style={styles.placeholderContainer}>
+                <Text style={styles.errorText}>
+                  You haven't bookmarked a cocktail (yet!) 🧐
+                </Text>
               </View>
             );
           }
 
           return (
-            <View style={styles.loadingContainer}>
-              <Text>
-                You haven't bookmarked cocktail made with this ingredient (yet!)
-                🧐🍅
+            <View style={styles.placeholderContainer}>
+              <Text style={styles.errorText}>
+                You haven't bookmarked a cocktail made with this ingredient
+                (yet!) 🧐🍅
               </Text>
             </View>
           );
@@ -89,15 +95,17 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
         if (filter === FILTERS.LIKED) {
           if (!ingredient) {
             return (
-              <View style={styles.loadingContainer}>
-                <Text>You haven't liked a cocktail (yet!) ⭐️</Text>
+              <View style={styles.placeholderContainer}>
+                <Text style={styles.errorText}>
+                  You haven't liked a cocktail (yet!) ⭐️
+                </Text>
               </View>
             );
           }
 
           return (
-            <View style={styles.loadingContainer}>
-              <Text>
+            <View style={styles.placeholderContainer}>
+              <Text style={styles.errorText}>
                 You haven't liked a cocktail made with this ingredient (yet!)
                 ⭐️🥕
               </Text>
@@ -122,11 +130,15 @@ CocktailsContainer.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-  loadingContainer: {
+  placeholderContainer: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  errorText: {
+    paddingHorizontal: '20%',
+    textAlign: 'center',
   },
 });
 

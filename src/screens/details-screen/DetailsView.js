@@ -3,6 +3,8 @@ import React from 'react';
 import { Mutation } from 'react-apollo';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import getBookmarkedCocktails from '../cocktails-screen/getBookmarkedCocktails.gql';
+import getLikedCocktails from '../cocktails-screen/getLikedCocktails.gql';
 import getCocktail from './getCocktail.gql';
 import toggleBookmarkCocktail from './toggleBookmarkCocktail.gql';
 import toggleLikeCocktail from './toggleLikeCocktail.gql';
@@ -54,6 +56,7 @@ const DetailsView = ({
     liked,
     bookmarked,
   },
+  listQuery,
 }) => {
   const IngredientsList = ingredients.map(({ name, quantity }, index) => (
     <Text key={index}>
@@ -75,6 +78,12 @@ const DetailsView = ({
               <Mutation
                 mutation={toggleBookmarkCocktail}
                 update={updateCocktailAfterBookmark}
+                refetchQueries={[
+                  {
+                    query: getBookmarkedCocktails,
+                    variables: listQuery,
+                  },
+                ]}
               >
                 {toggleBookmark => (
                   <TouchableOpacity
@@ -109,6 +118,12 @@ const DetailsView = ({
               <Mutation
                 mutation={toggleLikeCocktail}
                 update={updateCocktailAfterLike}
+                refetchQueries={[
+                  {
+                    query: getLikedCocktails,
+                    variables: listQuery,
+                  },
+                ]}
               >
                 {toggleLike => (
                   <TouchableOpacity
@@ -170,6 +185,7 @@ DetailsView.propTypes = {
     liked: PropTypes.bool.isRequired,
     bookmarked: PropTypes.bool.isRequired,
   }).isRequired,
+  listQuery: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({
