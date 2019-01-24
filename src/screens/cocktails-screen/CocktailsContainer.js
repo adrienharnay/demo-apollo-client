@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   errorText: {
-    paddingHorizontal: '20%',
+    paddingHorizontal: '15%',
     textAlign: 'center',
   },
 });
