@@ -34,6 +34,7 @@ export default class CocktailsList extends React.PureComponent {
           onRefresh={refetch}
           refreshing={false}
           keyboardDismissMode="on-drag"
+          keyboardShouldPersistTaps="always"
         />
       </View>
     );
