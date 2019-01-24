@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
 import DetailsContainer from './DetailsContainer';
 
@@ -25,10 +25,15 @@ export default class DetailsScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: `https://${imageURL}` }} />
-        </View>
-        <DetailsContainer id={id} listQuery={listQuery} />
+        <ScrollView>
+          <View style={styles.imageContainer}>
+            <Image
+              style={styles.image}
+              source={{ uri: `https://${imageURL}` }}
+            />
+          </View>
+          <DetailsContainer id={id} listQuery={listQuery} />
+        </ScrollView>
       </View>
     );
   }

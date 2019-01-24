@@ -70,7 +70,7 @@ const DetailsView = ({
     <View style={styles.container}>
       <View style={styles.firstSection}>
         <View>
-          <Text style={styles.glassType}>{glassType}</Text>
+          <Text style={styles.glassType}>{`🥃 ${glassType}`}</Text>
         </View>
         <View>
           <View style={styles.bookmarkAndLike}>
@@ -190,12 +190,11 @@ DetailsView.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
+    padding: 20,
   },
   firstSection: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
   },
   glassType: {
     paddingVertical: 10,
