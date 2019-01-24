@@ -1,30 +1,11 @@
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
 
-import CocktailsScreen from './src/screens/cocktails-screen/CocktailsScreen';
-import DetailsScreen from './src/screens/details-screen/DetailsScreen';
+import { createApolloClient } from './src/utils/ApolloUtils';
+import { createNavigation } from './src/utils/NavigationUtils';
 
-import { createClient } from './ApolloUtils';
-
-const RootStack = createAppContainer(
-  createStackNavigator(
-    {
-      Home: CocktailsScreen,
-      Details: DetailsScreen,
-    },
-    {
-      initialRouteName: 'Home',
-      defaultNavigationOptions: {
-        headerStyle: {
-          backgroundColor: '#ffff',
-        },
-        headerBackTitle: null,
-      },
-    },
-  ),
-);
+const RootStack = createNavigation();
 
 export default class App extends React.Component {
   state = {
@@ -32,7 +13,7 @@ export default class App extends React.Component {
   };
 
   async componentDidMount() {
-    const client = await createClient();
+    const client = await createApolloClient();
 
     this.setState({ client });
   }

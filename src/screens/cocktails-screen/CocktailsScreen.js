@@ -40,7 +40,10 @@ export default class CocktailsScreen extends React.Component {
     const filtersValues = Object.values(FILTERS);
 
     this.setState(prevState => ({
-      filter: filtersValues[(filtersValues.indexOf(prevState.filter) + 1) % 3],
+      filter:
+        filtersValues[
+          (filtersValues.indexOf(prevState.filter) + 1) % filtersValues.length
+        ],
     }));
   };
 

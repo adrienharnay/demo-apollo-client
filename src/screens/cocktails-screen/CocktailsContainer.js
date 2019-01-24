@@ -46,7 +46,7 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
       if (error) {
         return (
           <View style={styles.placeholderContainer}>
-            <Text style={styles.errorText}>Error :(</Text>
+            <Text style={styles.errorText}>An error occured 😔</Text>
           </View>
         );
       }
@@ -57,7 +57,7 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
             return (
               <View style={styles.placeholderContainer}>
                 <Text style={styles.errorText}>
-                  There is no cocktail (yet!)
+                  Where did the cocktails go?! 😩
                 </Text>
               </View>
             );

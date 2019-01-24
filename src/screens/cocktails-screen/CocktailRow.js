@@ -4,9 +4,9 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default class CocktailRow extends React.PureComponent {
   handlePress = () => {
-    const { onPress, ...params } = this.props;
+    const { id, name, imageURL } = this.props;
 
-    this.props.onPress(params);
+    this.props.onPress({ id, name, imageURL });
   };
 
   render() {

@@ -21,7 +21,7 @@ const DetailsContainer = ({ id, listQuery }) => (
       if (error) {
         return (
           <View style={styles.loadingContainer}>
-            <Text>Error :(</Text>
+            <Text>An error occured 😔</Text>
           </View>
         );
       }
