@@ -48,7 +48,7 @@ const updateCocktailAfterLike = (cache, { data: { toggleLikeCocktail } }) => {
 
 const handleShare = (imageURL, glassType, instructions, ingredients) => {
   const title = 'Check out this cool drink!';
-  const message = `Glass: ${glassType}\n\n${instructions}\n\n${ingredients
+  const message = `🥃 ${glassType}\n\n${instructions}\n\n${ingredients
     .map(({ name, quantity }) => `- ${quantity ? `${quantity} ` : ''}${name}`)
     .join('\n')}\n\nhttps://${imageURL}`;
 
