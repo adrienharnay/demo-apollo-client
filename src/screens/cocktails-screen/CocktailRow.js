@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image } from 'react-native-expo-image-cache';
 
 export default class CocktailRow extends React.PureComponent {
   handlePress = () => {
@@ -16,7 +17,7 @@ export default class CocktailRow extends React.PureComponent {
       <TouchableOpacity activeOpacity={0.8} onPress={this.handlePress}>
         <View key={id} style={styles.row}>
           <Text style={styles.text}>{name}</Text>
-          <Image style={styles.image} source={{ uri: `https://${imageURL}` }} />
+          <Image style={styles.image} uri={`https://${imageURL}`} />
         </View>
       </TouchableOpacity>
     );

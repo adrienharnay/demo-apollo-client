@@ -1,5 +1,6 @@
 import React from 'react';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { Image } from 'react-native-expo-image-cache';
 
 import DetailsContainer from './DetailsContainer';
 
@@ -27,10 +28,7 @@ export default class DetailsScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.imageContainer}>
-            <Image
-              style={styles.image}
-              source={{ uri: `https://${imageURL}` }}
-            />
+            <Image style={styles.image} uri={`https://${imageURL}`} />
           </View>
           <DetailsContainer id={id} imageURL={imageURL} listQuery={listQuery} />
         </ScrollView>
