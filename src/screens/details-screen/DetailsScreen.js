@@ -32,7 +32,7 @@ export default class DetailsScreen extends React.Component {
               source={{ uri: `https://${imageURL}` }}
             />
           </View>
-          <DetailsContainer id={id} listQuery={listQuery} />
+          <DetailsContainer id={id} imageURL={imageURL} listQuery={listQuery} />
         </ScrollView>
       </View>
     );

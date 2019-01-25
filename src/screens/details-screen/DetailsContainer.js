@@ -7,7 +7,7 @@ import DetailsView from './DetailsView';
 
 import getCocktail from './getCocktail.gql';
 
-const DetailsContainer = ({ id, listQuery }) => (
+const DetailsContainer = ({ id, imageURL, listQuery }) => (
   <Query query={getCocktail} variables={{ id }}>
     {({ loading, error, data: { cocktail } = {} }) => {
       if (loading && !cocktail) {
@@ -26,13 +26,19 @@ const DetailsContainer = ({ id, listQuery }) => (
         );
       }
 
-      return <DetailsView cocktail={cocktail} listQuery={listQuery} />;
+      return (
+        <DetailsView
+          cocktail={{ ...cocktail, imageURL }}
+          listQuery={listQuery}
+        />
+      );
     }}
   </Query>
 );
 
 DetailsContainer.propTypes = {
   id: PropTypes.string.isRequired,
+  imageURL: PropTypes.string.isRequired,
   listQuery: PropTypes.object.isRequired,
 };
 

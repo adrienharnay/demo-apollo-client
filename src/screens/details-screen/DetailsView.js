@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Mutation } from 'react-apollo';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import getBookmarkedCocktails from '../cocktails-screen/getBookmarkedCocktails.gql';
 import getLikedCocktails from '../cocktails-screen/getLikedCocktails.gql';
@@ -46,9 +46,19 @@ const updateCocktailAfterLike = (cache, { data: { toggleLikeCocktail } }) => {
   });
 };
 
+const handleShare = (imageURL, glassType, instructions, ingredients) => {
+  const title = 'Check out this cool drink!';
+  const message = `https://${imageURL}\n\nGlass: ${glassType}\n\n${instructions}\n\n${ingredients
+    .map(({ name, quantity }) => `- ${quantity ? `${quantity} ` : ''}${name}`)
+    .join('\n')}`;
+
+  Share.share({ title, message }, { subject: title, dialogTitle: title });
+};
+
 const DetailsView = ({
   cocktail: {
     id,
+    imageURL,
     likes,
     glassType,
     instructions,
@@ -167,12 +177,23 @@ const DetailsView = ({
         <Text>{instructions}</Text>
       </View>
       <View style={styles.thirdSection}>{IngredientsList}</View>
+      <View style={styles.fourthSection}>
+        <TouchableOpacity
+          onPress={() =>
+            handleShare(imageURL, glassType, instructions, ingredients)
+          }
+        >
+          <Text style={styles.share}>🔗 Share</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 DetailsView.propTypes = {
   cocktail: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    imageURL: PropTypes.string.isRequired,
     likes: PropTypes.number.isRequired,
     glassType: PropTypes.string.isRequired,
     instructions: PropTypes.string.isRequired,
@@ -213,6 +234,12 @@ const styles = StyleSheet.create({
   thirdSection: {
     marginTop: 20,
     marginLeft: 10,
+  },
+  fourthSection: {
+    marginTop: 10,
+  },
+  share: {
+    paddingVertical: 10,
   },
   bold: {
     fontWeight: 'bold',
