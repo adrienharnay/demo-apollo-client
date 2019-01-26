@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Query } from 'react-apollo';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import CocktailRow from './CocktailRow';

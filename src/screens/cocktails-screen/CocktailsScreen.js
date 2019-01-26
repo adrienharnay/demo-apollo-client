@@ -1,6 +1,8 @@
+import { Constants } from 'expo';
 import debounce from 'lodash.debounce';
 import React from 'react';
 import {
+  Platform,
   StyleSheet,
   Text,
   TextInput,
@@ -57,6 +59,7 @@ export default class CocktailsScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.statusBarPlaceholder} />
         <View style={styles.header}>
           <View style={styles.inputView}>
             <TextInput
@@ -92,6 +95,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'stretch',
     justifyContent: 'center',
+  },
+  statusBarPlaceholder: {
+    height: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
+    backgroundColor: '#fff',
   },
   header: {
     flexDirection: 'row',
