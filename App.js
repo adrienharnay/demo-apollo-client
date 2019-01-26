@@ -1,6 +1,5 @@
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { SafeAreaView, StyleSheet } from 'react-native';
 
 import { createApolloClient } from './src/utils/ApolloUtils';
 import { createNavigation } from './src/utils/NavigationUtils';
@@ -22,18 +21,9 @@ export default class App extends React.Component {
     return (
       this.state.client && (
         <ApolloProvider client={this.state.client}>
-          <SafeAreaView style={styles.safeArea}>
-            <RootStack />
-          </SafeAreaView>
+          <RootStack />
         </ApolloProvider>
       )
     );
   }
 }
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});

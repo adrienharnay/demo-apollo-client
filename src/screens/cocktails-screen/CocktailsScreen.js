@@ -3,6 +3,7 @@ import debounce from 'lodash.debounce';
 import React from 'react';
 import {
   Platform,
+  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
@@ -58,38 +59,44 @@ export default class CocktailsScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.statusBarPlaceholder} />
-        <View style={styles.header}>
-          <View style={styles.inputView}>
-            <TextInput
-              autoCorrect={false}
-              style={styles.input}
-              onChangeText={this.handleInputChange}
-              placeholder="Select an ingredient 🍋"
-            />
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <View style={styles.statusBarPlaceholder} />
+          <View style={styles.header}>
+            <View style={styles.inputView}>
+              <TextInput
+                autoCorrect={false}
+                style={styles.input}
+                onChangeText={this.handleInputChange}
+                placeholder="Select an ingredient 🍋"
+              />
+            </View>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={this.handleFilterChange}
+              style={styles.filterView}
+            >
+              <Text style={styles.filter}>
+                {EMOJIS_BY_FILTER[this.state.filter]}
+              </Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={this.handleFilterChange}
-            style={styles.filterView}
-          >
-            <Text style={styles.filter}>
-              {EMOJIS_BY_FILTER[this.state.filter]}
-            </Text>
-          </TouchableOpacity>
+          <CocktailsContainer
+            ingredient={this.state.ingredient}
+            filter={this.state.filter}
+            onRowPress={this.onRowPress}
+          />
         </View>
-        <CocktailsContainer
-          ingredient={this.state.ingredient}
-          filter={this.state.filter}
-          onRowPress={this.onRowPress}
-        />
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
