@@ -9,43 +9,6 @@ import getCocktail from './getCocktail.gql';
 import toggleBookmarkCocktail from './toggleBookmarkCocktail.gql';
 import toggleLikeCocktail from './toggleLikeCocktail.gql';
 
-const updateCocktailAfterBookmark = (
-  cache,
-  { data: { toggleBookmarkCocktail } },
-) => {
-  const data = cache.readQuery({
-    query: getCocktail,
-    variables: { id: toggleBookmarkCocktail.id },
-  });
-  const newData = {
-    ...data,
-    ...toggleBookmarkCocktail,
-  };
-
-  cache.writeQuery({
-    query: getCocktail,
-    variables: { id: toggleBookmarkCocktail.id },
-    data: newData,
-  });
-};
-
-const updateCocktailAfterLike = (cache, { data: { toggleLikeCocktail } }) => {
-  const data = cache.readQuery({
-    query: getCocktail,
-    variables: { id: toggleLikeCocktail.id },
-  });
-  const newData = {
-    ...data,
-    ...toggleLikeCocktail,
-  };
-
-  cache.writeQuery({
-    query: getCocktail,
-    variables: { id: toggleLikeCocktail.id },
-    data: newData,
-  });
-};
-
 const handleShare = (imageURL, glassType, instructions, ingredients) => {
   const title = 'Check out this cool drink!';
   const message = `🥃 ${glassType}\n\n${instructions}\n\n${ingredients
@@ -87,7 +50,6 @@ const DetailsView = ({
             <View style={styles.bookmark}>
               <Mutation
                 mutation={toggleBookmarkCocktail}
-                update={updateCocktailAfterBookmark}
                 refetchQueries={[
                   {
                     query: getBookmarkedCocktails,
@@ -127,7 +89,6 @@ const DetailsView = ({
             <View>
               <Mutation
                 mutation={toggleLikeCocktail}
-                update={updateCocktailAfterLike}
                 refetchQueries={[
                   {
                     query: getLikedCocktails,

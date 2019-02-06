@@ -32,10 +32,6 @@ export const createApolloClient = async () => {
     if (networkError) {
       // eslint-disable-next-line no-console
       console.error(`[Network error]: ${networkError}`);
-
-      if (networkError.statusCode === 401) {
-        cache.writeData({ data: { token: '' } });
-      }
     }
   });
 
