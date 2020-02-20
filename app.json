@@ -1,25 +1,28 @@
 {
+  "name": "demo-apollo-client",
+  "displayName": "demo-apollo-client",
   "expo": {
     "name": "demo-apollo-client",
     "slug": "demo-apollo-client",
-    "githubUrl": "https://github.com/adrienharnay/demo-apollo-client",
     "privacy": "public",
-    "sdkVersion": "32.0.0",
-    "platforms": ["ios", "android"],
+    "sdkVersion": "36.0.0",
     "version": "1.0.0",
+    "entryPoint": "node_modules/expo/AppEntry.js",
+    "platforms": ["ios", "android", "web"],
+    "githubUrl": "https://github.com/adrienharnay/demo-apollo-client",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true
-    }
+    "assetBundlePatterns": ["**/*"]
+  },
+  "splash": {
+    "image": "./assets/images/splash.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
+  },
+  "updates": {
+    "fallbackToCacheTimeout": 0
+  },
+  "ios": {
+    "supportsTablet": true
   }
 }

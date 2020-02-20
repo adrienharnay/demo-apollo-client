@@ -5,16 +5,6 @@ import { Image } from 'react-native-expo-image-cache';
 import DetailsContainer from './DetailsContainer';
 
 export default class DetailsScreen extends React.Component {
-  static navigationOptions = ({
-    navigation: {
-      state: {
-        params: { name },
-      },
-    },
-  }) => ({
-    title: name,
-  });
-
   render() {
     const {
       navigation: {

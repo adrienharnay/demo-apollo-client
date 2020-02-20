@@ -26,10 +26,6 @@ const EMOJIS_BY_FILTER = {
 };
 
 export default class CocktailsScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
-  };
-
   state = {
     ingredient: '',
     filter: FILTERS.ALL,
