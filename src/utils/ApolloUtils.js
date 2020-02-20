@@ -6,7 +6,7 @@ import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
 import loggerLink from 'apollo-link-logger';
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 import { AsyncStorage } from 'react-native';
 
 export const createApolloClient = async () => {

@@ -2,10 +2,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 
-import CocktailsScreen from '../screens/cocktails-screen/CocktailsScreen';
-import DetailsScreen from '../screens/details-screen/DetailsScreen';
+import CocktailsScreen from './src/screens/cocktails-screen/CocktailsScreen';
+import DetailsScreen from './src/screens/details-screen/DetailsScreen';
 
-export const createNavigation = () => {
+const RootStack = () => {
   const Stack = createStackNavigator();
 
   return (
@@ -22,16 +22,14 @@ export const createNavigation = () => {
         <Stack.Screen
           name="Home"
           component={CocktailsScreen}
-          options={{ header: null }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Details"
           component={DetailsScreen}
           options={({
-            navigation: {
-              state: {
-                params: { name },
-              },
+            route: {
+              params: { name },
             },
           }) => ({
             title: name,
@@ -41,3 +39,5 @@ export const createNavigation = () => {
     </NavigationContainer>
   );
 };
+
+export default RootStack;

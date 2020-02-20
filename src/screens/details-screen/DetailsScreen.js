@@ -7,10 +7,8 @@ import DetailsContainer from './DetailsContainer';
 export default class DetailsScreen extends React.Component {
   render() {
     const {
-      navigation: {
-        state: {
-          params: { id, imageURL, listQuery },
-        },
+      route: {
+        params: { id, imageURL, listQuery },
       },
     } = this.props;
 

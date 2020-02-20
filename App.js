@@ -2,9 +2,8 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 
 import { createApolloClient } from './src/utils/ApolloUtils';
-import { createNavigation } from './src/utils/NavigationUtils';
 
-const RootStack = createNavigation();
+import RootStack from './RootStack';
 
 export default class App extends React.Component {
   state = {

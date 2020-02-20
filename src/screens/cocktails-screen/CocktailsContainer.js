@@ -66,7 +66,7 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
           return (
             <View style={styles.placeholderContainer}>
               <Text style={styles.errorText}>
-                There is no cocktail made with this ingredient 🥒
+                There are no cocktails made with this ingredient 🥒
               </Text>
             </View>
           );
@@ -77,7 +77,7 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
             return (
               <View style={styles.placeholderContainer}>
                 <Text style={styles.errorText}>
-                  You haven't bookmarked a cocktail (yet!) 🧐
+                  You haven't bookmarked any cocktail (yet!) 🧐
                 </Text>
               </View>
             );
@@ -86,7 +86,7 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
           return (
             <View style={styles.placeholderContainer}>
               <Text style={styles.errorText}>
-                You haven't bookmarked a cocktail made with this ingredient
+                You haven't bookmarked any cocktail made with this ingredient
                 (yet!) 🧐🍅
               </Text>
             </View>
@@ -98,7 +98,7 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
             return (
               <View style={styles.placeholderContainer}>
                 <Text style={styles.errorText}>
-                  You haven't liked a cocktail (yet!) ⭐️
+                  You haven't liked any cocktail (yet!) ⭐️
                 </Text>
               </View>
             );
@@ -107,7 +107,7 @@ const CocktailsContainer = ({ ingredient, filter, onRowPress }) => (
           return (
             <View style={styles.placeholderContainer}>
               <Text style={styles.errorText}>
-                You haven't liked a cocktail made with this ingredient (yet!)
+                You haven't liked any cocktail made with this ingredient (yet!)
                 ⭐️🥕
               </Text>
             </View>
